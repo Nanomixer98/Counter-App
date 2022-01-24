@@ -1,32 +1,20 @@
-
-
-// const getImagenPromesa = () => new Promise( resolve => resolve('https://ajskdhaskjdhajs.com') )
-// getImagenPromesa().then( console.log );
-
-const getImagen = async() => {
+export const getDummyData = async () => {
 
     try {
 
-        const apiKey = 'C1khQe3Z7R1W2lfTO9myKeuShdqFYSGC';
-        const resp   = await fetch(`http://api.giphy.com/v1/gifs/random?api_key=${ apiKey }`);
-        const { data } = await resp.json(); 
+        const res = await fetch(`https://jsonplaceholder.typicode.com/todos/10`);
+        if (!res.ok) throw { status: res.status, statusText: res.statusText };
+        const data = await res.json(); 
+        // console.log(data);
 
-        const { url } = data.images.original;
-
-        const img = document.createElement('img');
-        img.src = url;
-        document.body.append( img );
+        return {data, status: res.status};
 
     } catch (error) {
         // manejo del error
-        console.error(error)
-    }
-    
-    
+        // console.error(error);
+        return error;
+    } 
     
 }
 
- getImagen();
-
-
-
+getDummyData();
